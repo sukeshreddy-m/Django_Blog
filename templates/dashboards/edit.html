@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    {% include 'dashboards/sidebar.html' %}
+    <div class="col-md-9">
+        <h2>Edit Category</h2>
+        <form action="{% url 'edit_category' category.id%}" method="post">
+            {% csrf_token %}
+            <input type="text" name="c_name" value="{{category.category_name}}">
+            <button type="submit">Change</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
