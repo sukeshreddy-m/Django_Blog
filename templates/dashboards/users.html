@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    {% include 'dashboards/sidebar.html' %}
+    {% if perms.auth.view_user %}
+    <div class="col-md-9">
+        <h2>All Users</h2>
+        <a href="{% url 'add_user' %}" class="btn btn-dark text-light float-right mb-2">Add New</a>
+        <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">UserName</th>
+      <th scope="col">Email</th>
+      <th>Active</th>
+      <th>Staff</th>
+      <th>SuperUser</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for i in users %}
+    <tr>
+      <td>{{ forloop.counter}}</td>
+      <td>{{ i.first_name }} {{ i.last_name }}</td>
+      <td>{{ i.username }}</td>
+      <td>{{ i.email }}</td>
+      <td>{{ i.is_active }}</td>
+      <td>{{ i.is_staff }}</td>
+      <td>{{ i.is_superuser }}</td>
+      <td>
+        <a href="{% url 'edit_user' i.id %}"><i class="fa fa-edit text-success"></i></a>
+        &nbsp;
+        <a href="{% url 'delete_user' i.id %}"><i class="fa fa-trash text-danger"></i></a>
+      </td>
+    </tr>
+
+   {% endfor %}
+  </tbody>
+</table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
